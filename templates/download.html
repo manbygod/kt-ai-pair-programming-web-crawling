@@ -1,0 +1,16 @@
+<div>
+    <h1>구글 이미지 다운로드 페이지</h1>
+
+    <div>
+        <form action="/downloads" method="POST">
+            <input type="text" name="keyword">
+            <input type="submit" value="다운로드">
+        </form>
+    </div>
+
+    <hr>
+{% for link in goo_img_links %}
+    <p>{{ link }}</p> 
+    <p><img src='{{ link }}'></p>
+{% endfor %}
+</div>

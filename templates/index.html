@@ -1,0 +1,22 @@
+<div>
+    <h1>웹 크롤링 프로젝트</h1>
+    <div>
+        <h2>Welcome</h2> 
+        <p>
+            {% if user %} {{user['name']}} {% else %} 비회원 {% endif %}님 안녕하세요.
+            {% if user %}
+                <div>
+                    <p><a href = '/logout'>로그아웃하기</a></p>
+                    <p><a href = '/withdrawal'>탈퇴하기</a></p>
+                    <p><a href = '/news/ranking'>뉴스 검색</a></p>
+                    <p><a href = '/downloads'>이미지 다운로드</a></p>
+                </div> 
+
+            {% else %}
+                <div>
+                    <p><a href = '/login'>로그인하기</a></p>
+                    <p><a href = '/join'>회원가입하기</a></p>
+                </div>
+            {% endif %}
+        </p>
+</div>
