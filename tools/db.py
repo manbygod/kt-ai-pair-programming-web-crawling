@@ -36,6 +36,15 @@ class DBTool(metaclass=singleton.Singleton):
         
         self.cursor.execute(query)
         self.db.commit()
+        
+    def selectUserName(self, userid):
+        
+        query = f"""
+        select id, name from user where name = '{userid}'
+        """
+        
+        self.cursor.execute(query)
+        return self.cursor.fetchone()
  
     def selectUser(self, userid, password):
         

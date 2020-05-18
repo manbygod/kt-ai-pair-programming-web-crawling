@@ -1,10 +1,21 @@
-<h1>word count</h1>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WEB</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
+        <div id="header">
+            <div><a href="/">메인 페이지로</a></div> 
+            <div><h1>뉴스 단어 분석 페이지</h1></div>
+        </div>
 
-<hr> <!-- 빈 줄 삽입-->
-
-<h2>result</h2>
-<ul>
-{% for k, v in words %}
-    <li>{{ k }}: {{ v }}</li>
-{% endfor %}
-</ul>
+        <h2>result</h2>
+        <ul>
+        {% for k, v in words %}
+            <li>{{ k }}: {{ v }}</li>
+        {% endfor %}
+        </ul>
+    </body>
+</html>

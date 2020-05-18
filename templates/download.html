@@ -1,6 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WEB</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
 <div>
-    <h1>구글 이미지 다운로드 페이지</h1>
-
+    <div id="header">
+        <div><a href="/">메인 페이지로</a></div> 
+        <div><h1>구글 이미지 다운로드 페이지</h1></div>
+    </div>
     <div>
         <form action="/downloads" method="POST">
             <input type="text" name="keyword">
@@ -8,9 +18,10 @@
         </form>
     </div>
 
-    <hr>
 {% for link in goo_img_links %}
     <p>{{ link }}</p> 
     <p><img src='{{ link }}'></p>
 {% endfor %}
 </div>
+</body>
+</html>

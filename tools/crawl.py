@@ -24,8 +24,6 @@ class CrawlTool(metaclass=singleton.Singleton):
         for k, v in args.items():
             url += f'{k}={v}&'
             
-        print(url)
-            
         self.driver.get(url)
         
         soup = BeautifulSoup(self.driver.page_source, 'html.parser')
@@ -41,6 +39,32 @@ class CrawlTool(metaclass=singleton.Singleton):
         news = [ dict(news_link = tag.get('href'), news_text = tag.get_text()) for tag in soup if tag.get('href') is not None ]
         
         return news
+    
+    def getDaumNewsBestReply(self, date):
+        
+        url = 'https://media.daum.net/ranking/bestreply'
+        soup = self.getSoupContentFromUrl(url, regDate=date)
+        
+        soup = soup.select('a.link_txt')
+        news = [ dict(news_link = tag.get('href'), news_text = tag.get_text()) for tag in soup if tag.get('href') is not None ]
+        
+        return news
+    
+    def getReplyOfNews(self, news_link, reply_count):
+        
+        news_id = news_link.split("/")[-1]
+        
+        print(news_id)
+        
+        reply_url = f"https://comment.daum.net/apis/v1/posts/@{news_id}/comments?parentId=0&offset=0&limit={reply_count}&sort=RECOMMEND&isInitial=true"
+        
+        soup = self.getSoupContentFromUrl(reply_url)
+        
+        print(soup)
+        
+        return soup
+        
+        
     
     def getTextNews(self, url):
         

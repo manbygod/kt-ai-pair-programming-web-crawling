@@ -1,16 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>WEB</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/style.css">
+    </head>
+    <body>
 <div>
-    <h1>다음 뉴스 랭킹 페이지</h1>
-    <div>
-        <form action="/news/ranking" method="GET">
-            <input type="text" name="date">
-            <input type="submit" id="search_btn" value="날짜 검색">
-        </form>
+    <div id="header">
+        <div><a href="/">메인 페이지로</a></div> 
+        <div><h1>뉴스 랭킹 페이지</h1></div>
     </div>
     <div id="container">
+        <form action="/news/ranking" method="GET">
+            <input type="text" name="date">
+            <input type="submit" value="날짜 검색">
+        </form>
+    </div>
+    <div>
+
         <ol id="news_list">
             {% for n in news %}
-                <li><a href = "/news/words?url={{ n['news_link'] }}"> {{ n['news_text'] }}</a></li>
+                <li><a href = "/news/words?url={{ n['news_link'] }}"> {{ n['news_text'] }}</a>
+                <!-- <a target="_blank" href = "/news/reply?url={{ n['news_link'] }}&reply_count=5">댓글 보기</a> -->
+                </li>
             {% endfor %}
         </ol> 
     </div>
 </div>
+</body>
+</html>

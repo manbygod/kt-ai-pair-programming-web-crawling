@@ -18,7 +18,12 @@ def index():
 def login():
     
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('login.html', isNameExisted=True)
+    
+    user = db_tool.selectUserName(request.form.get('userid'))
+    
+    if user is None:
+        return render_template('login.html', msg="회원가입을 해주십시오", isNameExisted=False)  
     
     user = db_tool.selectUser(request.form.get('userid'), \
                     request.form.get('password') \
@@ -27,7 +32,7 @@ def login():
         session['user'] = user # session은 비어있는 딕셔너리와 같은 type으로 개발자가 임으로 key와 value를 지정 
         return redirect('/')
     else:
-        return render_template('login.html', msg="로그인 정보를 확인하세요")  
+        return render_template('login.html', msg="패스워드 정보를 확인하세요", isNameExisted=True)  
 
 @app.route('/logout')
 def logout():
@@ -39,6 +44,11 @@ def logout():
 def join():
     if request.method == 'GET':
         return render_template('join.html')
+    
+    user = db_tool.selectUserName(request.form.get('userid'))
+    
+    if user:
+        return render_template('join.html', msg="이미 회원이십니다.")
     
     db_tool.insertUser(request.form.get('userid'), \
                        request.form.get('profile'), \
@@ -72,6 +82,23 @@ def news():
     
     # print(news)
     return render_template('news.html', news=news)
+
+@app.route('/news/reply')
+def newsReply():
+    
+    url = request.args.get('url')
+    
+    reply_count = request.args.get('reply_count')
+    if reply_count is None:
+        reply_count = '0'
+    
+    replys = crawl_tool.getReplyOfNews(url, reply_count)
+    
+    print(replys)
+    
+    return replys
+    
+    
 
 @app.route('/news/words')
 def wordcount():
